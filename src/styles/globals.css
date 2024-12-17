@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --main-font: var(--font-inter);
+  --second-font: var(--font-poppins);
+  --main-color: #F5F9FF;
+  --primary-color: #20669F;
+  --secondary-color: #6999c0;
+  --black-color: #353739;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #ededed;
+    --foreground: #ededed;
+    
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  color: var(--foreground);
+  background: var(--main-color);
+  font-family: var(--font-inter);
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+main {
+  margin-left: 10vw;
+  margin-right: 10vw;
+  flex: 1;
+}
+
+h1{
+  font-size: 4rem;
+}
+
+h2{
+  font-size: 3rem;
+}
+
+h3{
+  font-family: var(--second-font);
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+h4{
+  font-size: 2rem; /* 30px */
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+
+h5{
+  font-size: 1.5rem;
+}
+
+h6{
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem;
+  font-family: var(--main-font);
+}
+
+.st{
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.separador_landing{
+  border-radius: 2rem 2rem 0 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.noStyles{
+  text-decoration: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.error{
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  text-align: left;
+}

@@ -1,0 +1,177 @@
+/* @import "../../../styles/variables.scss"; */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  /* height: clamp(65px, 1.5vw, 80px); */
+  /* background-color: blueviolet; */
+  padding: 1rem 10vw;
+  justify-content: space-between;
+  /* 
+  z-index: 1;
+  background-color: var(--main-color);
+  width: calc(100% - 2 * 10vw);
+  padding-right: 10vw;
+  padding-left: 10vw;
+  height: clamp(65px, 1.5vw, var(--navbar-height));
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 1px 30.1px -2px rgba(0, 0, 0, 0.25); 
+  */
+}
+
+.navbar__logo {
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-decoration: none;
+}
+
+.navbar__logo h5 {
+  margin-left: 0.5rem;
+  color:  var(--primary-color);
+  font-family: var(--font-inter);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: normal;
+  /* letter-spacing: -1.2px; */
+}
+
+.navbar__logo img {
+  min-width: 30px;
+  max-width: 70px;
+  width: 25%;
+  height: auto;
+}
+
+.navbar__logo svg {
+  margin-left: 0.5rem;
+  width: 1.5rem;
+  height: auto;
+}
+
+.navbar__items,
+.navbar__itemsActive {
+  width: 100%;
+  display: flex;
+  padding: 0;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  height: 4rem;
+  border-radius: 9px;
+  background: var(--primary-color);
+  justify-content: flex-end;
+
+}
+
+.navbar__items li,
+.navbar__itemsActive li {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  list-style: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.5px;
+}
+
+.navbar__link {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 100%;
+  text-align: center;
+  text-decoration: none;
+  font-family: var(--font-poppins);
+  font-size: clamp(16px, 1vw, 20px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  color: #F5F9FF;
+  transition: 0.4s ease-in-out;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--secondary-color);
+  border-bottom: var(--secondary-color) 5px solid;
+  transition: 0.4s ease-in-out;
+}
+
+.navbar__link__sign{
+  padding-left: 0;
+}
+
+.navbar__link__sign:hover,
+.navbar__link__sign--active {
+  color: var(--secondary-color);
+  border-bottom: var(--secondary-color) 0px solid;
+  transition: 0.4s ease-in-out;
+}
+
+.navbar__link__sign div:hover{
+  color: var(--primary-color);
+  background-color: var(--main-color);
+  transition: 0.5s ease-in-out;
+}
+
+
+/* Continuar con el resto de las clases siguiendo el mismo patrón */
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.dropDown {
+  position: absolute;
+  background-color: var(--main-color);
+  left: 10vw;
+  top: clamp(65px, 1.5vw, var(--navbar-height));
+  padding: 0;
+  margin: 0;
+  box-shadow: 0px 1px 30.1px -2px rgba(0, 0, 0, 0.25);
+  border-radius: 1rem;
+  animation: slideDown 0.5s ease-in-out;
+}
+
+.dropDown a {
+  font-family: var(--second-font);
+  font-size: clamp(16px, 1vw, 20px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  color: var(--black-color);
+  transition: 0.6s ease-in-out;
+}
+
+.dropDown a:hover li {
+  border-radius: 1rem;
+  background-color: var(--primary-color);
+  transition: 0.6s ease-in-out;
+  color: var(--main-color);
+  font-weight: 800;
+}
+
+/* El CSS sigue con esta lógica */

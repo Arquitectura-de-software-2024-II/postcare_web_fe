@@ -1,14 +1,17 @@
 import { Metadata } from "next";
+import RegistroForm from "@/components/Forms/RegistroForm";
+import FormAround from "@/components/Forms/FormAround";
 
 export const metadata: Metadata = {
-	title: 'Login',
-	description: 'página de login',
+  title: "Login",
+  description: "página de login",
 };
 
-export default function Registro() {
+export default function Login() {
   return (
-    <div >
-        registro
-    </div>
+    <FormAround>
+      <h4 className="text-primary">Registro</h4>
+      <RegistroForm />
+    </FormAround>
   );
 }

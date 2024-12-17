@@ -1,0 +1,45 @@
+.button {
+    display: flex;
+    border: none;
+    width: fit-content;
+    padding: 1rem 2rem;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    font-family: var(--main-font); /* Convertido a variable CSS */
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: 0.3s ease-in-out;
+}
+
+.button__primary {
+    background: var(--primary-color);
+    color: var(--main-color);
+}
+
+.button__primary:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.3s ease-in-out;
+}
+
+.button__secondary {
+    background-color: var(--main-color);
+    color: var(--primary-color);
+    box-sizing: border-box;
+    box-shadow: inset 0 0 0 2px var(--primary-color); /* Creates an "inner border" */
+}
+
+.button__secondary:hover {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--main-color);
+    transition: 0.3s ease-in-out;
+}
+
+.button__round {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
