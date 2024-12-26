@@ -28,7 +28,6 @@ export const useRegister = () => {
     onSuccess: (data:SignupResponse) => {
       // Guardar el token en cookies o localStorage
       document.cookie = `token=${data.token}; path=/`;
-
       // Opcional: Invalidate cache del usuario actual para recargar el estado
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },

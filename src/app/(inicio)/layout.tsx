@@ -1,6 +1,8 @@
+"use client";
 
 import Footer from '@/components/Footer/Footer';
 import Navbar from '@/components/Navbar/Navbar';
+import { useUser } from '@/context/userContext';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { redirect } from "next/navigation";
@@ -12,12 +14,11 @@ interface Props {
 
 export default function Layout3({ children }: Props) {
 
-  // const cookie = (await cookies()).get('session')?.value
-  const session = false;
+  // const { user } = useUser();
 
-  if (session) {
-    redirect('/usuario')
-  }
+  // if (user?.autenticado) {
+  //   redirect('/usuario')
+  // }
 
   return (
     <>

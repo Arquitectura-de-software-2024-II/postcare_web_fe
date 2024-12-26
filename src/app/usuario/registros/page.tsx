@@ -1,4 +1,5 @@
 // import Button from "@/components/Button/Button";
+import ListRecords from "@/components/Lists/ListRecords";
 import Link from "next/link";
 
 
@@ -24,7 +25,8 @@ export default function Registros() {
                     {/* Últimos Registros */}
                     <section className="max-w-xl mx-auto bg-white shadow-md rounded-lg p-6">
                         <h2 className="text-xl font-semibold text-gray-800 mb-4">Últimos registros realizados</h2>
-                        <p className="text-gray-500">No tienes registros recientes. ¡Comienza registrando tus síntomas!</p>
+                        <ListRecords />
+                        {/* <p className="text-gray-500">No tienes registros recientes. ¡Comienza registrando tus síntomas!</p> */}
                     </section>
                 </>
     );

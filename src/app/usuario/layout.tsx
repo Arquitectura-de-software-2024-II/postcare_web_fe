@@ -1,4 +1,8 @@
+"use client";
+
 import Navbar from "@/components/Navbar/Navbar";
+import { useUser } from "@/context/userContext";
+import { redirect } from "next/navigation";
 // import { useUser } from "@/hooks/useAuth";
 
 interface Props {
@@ -6,15 +10,16 @@ interface Props {
 }
 
 export default function LayoutUser({ children }: Props) {
-    // const { isLoading, isError } = useUser();
+  const { user } = useUser();
 
-    // if (isLoading) return <p>Cargando...</p>;
-    // if (isError) return <p>No autenticado</p>;
+  if (!user?.autenticado) {
+    redirect("/");
+  }
 
-    return (
-        <>
-          <Navbar auth={false}/>
-          <main className="min-h-screen py-10">{children}</main>
-        </>
-      );
+  return (
+    <>
+      <Navbar auth={false} />
+      <main className="min-h-screen py-10">{children}</main>
+    </>
+  );
 }

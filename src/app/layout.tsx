@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { Poppins, Inter} from "next/font/google";
-import "slick-carousel/slick/slick.css"; 
+import { Poppins, Inter } from "next/font/google";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Provider from "@/util/Providers";
+import CustomProvider from "@/util/Providers";
+import Provider from "@/redux/provider";
+import { UserProvider } from "@/context/userContext";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,9 +32,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
-        <Provider>
-        {children}
-        </Provider>
+        <CustomProvider>
+          <Provider>
+          <UserProvider>{children}</UserProvider>
+          <ToastContainer />
+          </Provider>
+        </CustomProvider>
       </body>
     </html>
   );
