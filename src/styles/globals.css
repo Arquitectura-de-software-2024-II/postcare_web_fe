@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Color bases are 100 */
+
+:root {
+  --main-font: var(--font-inter);
+  --second-font: var(--font-poppins);
+
+  --card-color: #eff5ff;
+
+  --text-color-40: #9ca3af;
+  --text-color-50: #6b7280;
+  --text-color-90: #353739;
+  --text-color-100: #36383a;
+  --text-color-110: #1a1e22;
+
+  --primary-color-1: #eff8ff;
+  --primary-color-5: #eff7ff;
+  --primary-color-10: #d2e6f7;
+  --primary-color-20: #7db2de;
+  --primary-color-90: #377cb4;
+  --primary-color-100: #20669F;
+  --primary-color-110: #164061;
+  
+  --background-color-90: #fafdff;
+  --background-color-100: var(--primary-color-5);
+  --background-color-110: var(--primary-color-10);
+  /* --background-color-100: #F5F9FF; */
+
+  --secondary-color-100: #AFDFFF;
+  
+  --error-color-5: #ffeeee;
+  --error-color-10: #ecb1b1;
+  --error-color-20: #d97777;
+  --error-color-90: #ad2525;
+  --error-color-100: #961616;
+  --error-color-110: #781010;
+
+  --warning-color-100: #B91c1c;
+  --warning-color-background:  #FEF2F2;
+
+  --success-color-5: #e5ffec;
+  --success-color-10: #b2e7be;
+  --success-color-20: #155724;
+  --success-color-90: #155724;
+  --success-color-100: #155724;
+  --success-color-110: #0e3b18;
+
+  --gray-color-20: #E5e7eb;
+  --gray-color-30: #D1d5db;
+  --gray-color-40: #9ca3af;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  background: var(--background-color-100);
+  color: var(--text-color-100);
+  font-family: var(--font-inter);
+}
+
+a {
+  text-decoration: none;
+}
+
+

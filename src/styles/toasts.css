@@ -1,0 +1,26 @@
+.Toastify__toast {
+    font-family: var(--main-font);
+}
+
+/** handle the notification color and the text color based on the theme **/
+
+.Toastify__toast-theme--colored.Toastify__toast--default {
+    background-color: var(--primary-color-5);
+    color: var(--primary-color-100);
+}
+.Toastify__toast-theme--colored.Toastify__toast--info {
+    background-color: "#fff5d8";
+    color: "#ffbf00";
+}
+.Toastify__toast-theme--colored.Toastify__toast--success {
+    background-color: var(--success-color-5);
+    color: var(--success-color-100);
+}
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+    background-color: var(--error-color-5);
+    color: var(--error-color-100);
+}
+.Toastify__toast-theme--colored.Toastify__toast--error {
+    background-color: var(--error-color-5);
+    color: var(--error-color-100);
+}

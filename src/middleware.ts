@@ -1,0 +1,57 @@
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from 'next/headers'
+import { postRefreshToken } from "./logic/services/userManagementServices";
+import { updateSession } from "./logic/lib/session";
+ 
+// 1. Specify protected and public routes
+const protectedRoutes = ['/usuario']
+const publicRoutes = ['/', '/auth']
+ 
+export default async function middleware(req: NextRequest) {
+  // 2. Check if the current route is protected or public
+  const path = req.nextUrl.pathname
+  const isProtectedRoute = protectedRoutes.includes(path)
+  const isPublicRoute = publicRoutes.includes(path)
+ 
+  // 3. Get the cookie from the cookie
+  const cookieStore = await cookies();
+  let session = cookieStore.get('access')
+  const refresh = cookieStore.get('refresh')
+
+  if (!session && refresh){
+    const result = await postRefreshToken(refresh.value);
+    if (result.access){
+      await updateSession(result.access);
+      const updatedCookieStore = await cookies();
+      session = updatedCookieStore.get('access')
+    }
+  }
+
+  //4. Redirect to /login if the user is not authenticated
+  if (isProtectedRoute && !session) {
+    return NextResponse.redirect(new URL('/', req.nextUrl))
+  }
+
+  // console.log(`sesion: ${session?.name}=${session?.value}`);
+
+  // const result = await getUser(`${session?.name}=${session?.value}`);
+  // console.log(result); 
+ 
+  // 5. Redirect to /dashboard if the user is authenticated
+  if (
+    isPublicRoute &&
+    session &&
+    !req.nextUrl.pathname.startsWith('/usuario')
+  ) {
+
+    return NextResponse.redirect(new URL('/usuario', req.nextUrl))
+  }
+ 
+  return NextResponse.next()
+}
+ 
+// Routes Middleware should not run on
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+}
+
