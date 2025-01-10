@@ -2,16 +2,39 @@ import { loginData, registerData, tokens } from "@/logic/models/authModel";
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_USER_MANAGEMENT_URL,
+  baseURL: "http://localhost:8080",
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
+  
 });
 
-export async function postRegister(
-  userData: registerData
-): Promise<{
+export async function postRefreshToken(
+  refreshToken: string
+): Promise<{ access: string }> {
+  const response = await axios
+    .post(
+      "http://localhost:8080/auth/jwt/refresh/",
+      { refresh: refreshToken },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: `refresh=${refreshToken}`,
+        },
+        withCredentials: true,
+      }
+    )
+    .then(function (result) {
+      return result.data;
+    })
+    .catch(() => {
+      return { access: "" };
+    });
+  return response;
+}
+
+export async function postRegister(userData: registerData): Promise<{
   awaitState: string;
   error: { detail?: string; email?: string; id_documento?: string };
 }> {
@@ -32,28 +55,14 @@ export async function postRegister(
   return response;
 }
 
-export async function postDeleteAccount(
-  password: string
-): Promise<{
-  awaitState: string;
-  error: { detail?: string; email?: string; id_documento?: string };
-}> {
-  const response = await API.post("/auth/users/me/", {
-    current_password: password,
-  })
-    .then(function () {
-      return {
-        error: {},
-        awaitState: "success",
-      };
-    })
-    .catch((error) => {
-      return {
-        error: error.response.data,
-        awaitState: "error",
-      };
-    });
-  return response;
+export async function postDeleteAccount(password: string) {
+  return await API.request({
+    url: "/auth/users/me/",
+    method: "delete",
+    data: {
+      current_password: password,
+    },
+  });
 }
 
 export async function postVerifyToken(): Promise<{ valid: boolean }> {
@@ -71,32 +80,14 @@ export async function postVerifyToken(): Promise<{ valid: boolean }> {
   return response;
 }
 
-export async function postRefreshToken(refreshToken: string): Promise<{ access: string }> {
-  // console.log("refreshToken: ", refreshToken);
-  const response = await axios.post("http://localhost:8000/auth/jwt/refresh/",{refresh: refreshToken},{
-    headers: {
-      "Content-Type": "application/json",
-      "Cookie": `refresh=${refreshToken}`,
-    },
-    withCredentials: true,
-  })
-    .then(function (result) {
-      return result.data;
-    })
-    .catch(() => {
-      return {access: ""};
-    });
-  return response;
-}
-
-export async function getUser(){
+export async function getUser() {
   const response = await API.get("/auth/users/me/")
     .then(function (result) {
       return result.data;
     })
     .catch((error) => {
       // console.log("hubo error");
-      return error.response.data;
+      return error.response?.data ? error.response.data : "error";
     });
   return response;
 }

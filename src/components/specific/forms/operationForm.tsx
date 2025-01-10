@@ -27,8 +27,6 @@ export default function OperationForm({
   operationData,
 }: OperationFormProps) {
   const { user } = useUser();
-
-  const [editing, setEditing] = useState(mode === "view" ? false : true);
   const [operationSelected, setOperationSelected] = useState<OperationType[]>(
     []
   );
@@ -85,10 +83,6 @@ export default function OperationForm({
     }
   }, [mode, operationData, operationOptions]);
 
-  const handleEdit = () => {
-    setEditing(true);
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     
       e.preventDefault();
@@ -135,9 +129,9 @@ export default function OperationForm({
           name="dateOperation"
           id="dateOperation"
           type="date"
-          value={formData.dateOperation}
+          value={formData.dateOperation.split("T")[0]}
           onChange={handleChange}
-          disabled={!editing}
+          disabled={mode == "view"}
         />
         {loadingOptions ? (
           <Spinner />
@@ -146,7 +140,7 @@ export default function OperationForm({
             label="Nombre Operación*"
             name="nameOperation"
             id="nameOperation"
-            disabled={loadingOptions || !editing}
+            disabled={loadingOptions || mode == "view"}
             value={formData.nameOperation}
             onChange={(f) => {
               const selectedOperation = operationOptions.find(
@@ -176,7 +170,7 @@ export default function OperationForm({
             }))}
             onChange={handleChange}
             value={formData.typeOperation}
-            disabled={!editing}
+            disabled={mode == "view"}
           />
         )}
         <Input
@@ -187,7 +181,7 @@ export default function OperationForm({
           placeholder="Andres Mora"
           value={formData.doctorName}
           onChange={handleChange}
-          disabled={!editing}
+          disabled={mode == "view"}
         />
         <Input
           label="Observaciones adicionales"
@@ -197,9 +191,9 @@ export default function OperationForm({
           placeholder="..."
           value={formData.observations}
           onChange={handleChange}
-          disabled={!editing}
+          disabled={mode == "view"}
         />
-        {(mode !== "view" || editing) && (
+        {mode !== "view"  && (
           <Button
             label={
               mode === "create" ? "Registrar operación" : "Guardar operación"
@@ -209,14 +203,6 @@ export default function OperationForm({
           />
         )}
       </form>
-      {mode === "view" && !editing && (
-        <Button
-          label={"Editar operación"}
-          fullWidth={true}
-          onClick={handleEdit}
-          type="button"
-        />
-      )}
     </>
   );
 }

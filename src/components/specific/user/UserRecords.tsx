@@ -1,15 +1,29 @@
 "use client";
 
+import { useUser } from "@/app/util/UserProvider";
 import Button from "@/components/UI/button";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 import InfoSkeleton from "@/components/UI/skeleton/InfoSkeleton";
-import { useRecords } from "@/logic/hooks/useRecords";
+import { useUserRecords } from "@/logic/hooks/useRecords";
 import { userRecord } from "@/logic/models/recordModel";
-import { faCalendarDay, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faCalendarDay, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function UserRecords() {
-  const { data, isLoading, error } = useRecords();
-  const records = data as userRecord[] | undefined;
+  const { user } = useUser();
+  const {
+    data: records,
+    isLoading,
+    error,
+  } = useUserRecords({ userId: user?.id ?? "" }) as {
+    data: userRecord[];
+    isLoading: boolean;
+    error: Error | null;
+  };
+
+  if (isLoading || !records) {
+    return <InfoSkeleton />;
+  }
 
   if (isLoading) {
     return <InfoSkeleton />;
@@ -35,9 +49,9 @@ export default function UserRecords() {
       </div>
       <div className="mx-auto p-4">
         <ol className="relative border-s border-grayColor-20">
-          {records? (
+          {records.length > 0 ? (
             records.map((record, index) => (
-              <li className="mb-10 ms-6" key={index}>
+              <li className="mb-6 ms-6" key={index}>
                 <span className="absolute flex items-center justify-center w-6 h-6 bg-primaryColor-10 rounded-full -start-3 ring-8 ring-backgroundColor-90">
                   <FontAwesomeIcon
                     icon={faCalendarDay}
@@ -55,21 +69,27 @@ export default function UserRecords() {
                 {record.parametrosControl && (
                     <>
                       {record.parametrosControl.signosVitales.map((signo, index) => (
-                        <p key={index}>{signo.nombre}: {signo.valor} </p>
+                        <p key={index}><b>{signo.nombre}:</b> {signo.valor}{signo.unidad}</p>
                       ))}
                       {record.parametrosControl.sintomas.map((sintoma, index) => (
-                        <p key={index}>{sintoma.nombre}: {sintoma.valor} </p>
+                        <p key={index}><b>{sintoma.nombre}:</b> {sintoma.valor}</p>
                       ))}
                       {record.parametrosControl.sintomasNoListados.map((sintomaNoListado, index) => (
-                        <p key={index}>{sintomaNoListado.nombre}: {sintomaNoListado.descripcion} </p>
+                        <p key={index}><b>{sintomaNoListado.nombre}:</b> {sintomaNoListado.descripcion} </p>
                       ))}
                     </>
                   )}
                 </div> 
+                <Button
+                label="Ver detalles"
+                rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+                navigate={`/usuario/registrosMedicos/${record.id}`}
+                additionalClasses="mt-4"
+              />
               </li>
             ))
           ) : (
-            <p>Aún no hay operaciones registradas</p>
+            <ErrorMessage type="info" message="Aún no hay registros creados" />
           )}
         </ol>
       </div>

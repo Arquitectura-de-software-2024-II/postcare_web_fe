@@ -133,9 +133,10 @@ const Button: React.FC<ButtonProps> = ({
     contentButton = (
       <>
         {leftIcon && <span className={iconClasses}>{leftIcon}</span>}
+        {label &&
         <span className="text-center flex items-center justify-center">
           {label}
-        </span>
+        </span>}
         {rightIcon && <span className={iconClasses}>{rightIcon}</span>}
       </>
     );

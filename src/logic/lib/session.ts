@@ -37,12 +37,25 @@ export async function updateSession(accessToken: string) {
   cookieStore.set("access", accessToken, {
     httpOnly: true,
     secure: true,
-    expires: new Date(Date.now() + 1000 * 10),
+    expires: new Date(Date.now() + 1000 * 60 * 5),
     sameSite: "lax",
     path: "/",
   });
   
 }
+
+export async function createApikey() {
+  const cookieStore = await cookies();
+
+  cookieStore.set("apikey","7B5zIqmRGXmrJTFmKa99vcit", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: "/",
+  });
+  
+}
+
 
 export async function deleteSession() {
   const cookieStore = await cookies(); // Obtén el cookieStore.
@@ -50,3 +63,5 @@ export async function deleteSession() {
   cookieStore.delete("refresh");
   cookieStore.delete("access");
 }
+
+

@@ -1,6 +1,7 @@
 export interface userRecord {
-    id: string
-    fechaRegistro: "2025-01-04T20:41:15.278Z",
+    id?: string
+    fechaRegistro: string,
+    userId?: string;
     parametrosControl:{
         signosVitales: VitalSign[]
         sintomas: Symptom[]
@@ -24,11 +25,11 @@ export interface VitalSign{
 export interface Symptom{
     nombre: string
     valor: number
-    escala: {
+    escala?: {
         min: number
         max: number
     }
-    tieneEscala: boolean
+    tieneEscala?: boolean
 }
 
 export interface NotListedSymptom{

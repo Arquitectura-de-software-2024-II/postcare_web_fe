@@ -2,7 +2,7 @@
 
 import { login } from "@/logic/actions/loginAction";
 import Button from "@/components/UI/button";
-import ErrorMessage from "@/components/UI/errorMessage";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 import Input from "@/components/UI/Input";
 import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
@@ -19,18 +19,9 @@ export default function LoginForm() {
   useEffect(() => {
     if (state?.formData) {
       setFormData({
-        typeId:
-          typeof state.formData.typeId === "string"
-            ? state.formData.typeId
-            : "",
-        userId:
-          typeof state.formData.userId === "string"
-            ? state.formData.userId
-            : "",
-        password:
-          typeof state.formData.password === "string"
-            ? state.formData.password
-            : "",
+        typeId: state.formData.typeId?.toString() || "",
+        userId: state.formData.userId?.toString() || "",
+        password: state.formData.password?.toString() || "",
       });
     }
   }, [state?.formData]);
@@ -49,7 +40,6 @@ export default function LoginForm() {
 
   return (
     <form className="space-y-6" action={action}>
-      <h3 className="text-primaryColor text-center">Iniciar sesión</h3>
       <Input
         label="Tipo de documento de identidad*"
         name="typeId"

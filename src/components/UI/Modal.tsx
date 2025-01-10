@@ -9,6 +9,7 @@ interface ModalProps {
   content: React.ReactNode;
   footerButtons?: React.ReactNode;
   type?: "default" | "popup";
+  defaultDelete?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -18,6 +19,7 @@ const Modal: React.FC<ModalProps> = ({
   content,
   footerButtons,
   type = "default", // "default" o "popup"
+  defaultDelete = false,
 }) => {
   if (!isOpen) return null;
 
@@ -58,7 +60,30 @@ const Modal: React.FC<ModalProps> = ({
 
           {/* Body */}
           <div className={`p-4 md:p-5 ${type === "popup" && "text-center"}`}>
-            {content}
+            {defaultDelete?
+                  <>
+                  <svg
+                    className="mx-auto mb-4 text-gray-400 w-12 h-12 text-errorColor-10"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                  <h3 className="mb-5 text-lg font-normal text-gray-500 ">
+                  {content}
+                  </h3>
+                </>
+              :<>{content}</>
+            }
+            
           </div>
 
           {/* Footer */}
@@ -66,7 +91,7 @@ const Modal: React.FC<ModalProps> = ({
             <div
               className={`flex ${
                 type === "popup"
-                  ? "justify-center gap-2 pb-4 md:pb-5"
+                  ? "justify-center gap-6 pb-4 md:pb-5"
                   : "items-center border-t border-grayColor-20 rounded-b  p-4 md:p-5"
               }`}
             >

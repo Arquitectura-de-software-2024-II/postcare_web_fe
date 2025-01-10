@@ -1,4 +1,4 @@
-import Logo from "../UI/logo";
+import Logo from "../UI/Logo";
 
 const Footer = () => {
   return (
@@ -16,7 +16,7 @@ const Footer = () => {
           </a>
           <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-main sm:mb-0  mr-8">
             <li>
-              <a href="#" className="hover:underline me-4 md:me-6">
+              <a href="/nosotros" className="hover:underline me-4 md:me-6">
                 Sobre nosotros
               </a>
             </li>
@@ -31,7 +31,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/contactenos" className="hover:underline">
                 Contacto
               </a>
             </li>
@@ -39,8 +39,8 @@ const Footer = () => {
         </div>
         <hr className="my-6 sm:mx-auto  lg:my-8" />
         <span className="block text-sm sm:text-center ">
-          © 2023{" "}
-          <a href="https://flowbite.com/" className="hover:underline">
+          © 2025{" "}
+          <a href="#" className="hover:underline">
             Postcare™
           </a>
           . Todos los derechos reservados.

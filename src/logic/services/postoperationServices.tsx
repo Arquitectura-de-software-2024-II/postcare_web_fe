@@ -1,10 +1,12 @@
 import axios from "axios";
 import { UserOperation } from "@/logic/models/operationModel";
+import { userRecord } from "../models/recordModel";
 
 const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_POSTOPERATION_URL,
+  baseURL: "http://localhost:8081",
   headers: { 
     "Content-Type": "application/json",
+    "apikey": "7B5zIqmRGXmrJTFmKa99vcit",
   },
   withCredentials: true, 
 });
@@ -31,17 +33,8 @@ export const getUserOperations = async ({userId}:{userId:string}) => {
   try {
     const {data} = await API.get(`/api/pacientes/${userId}/cirugias`);
     return data;
-  } catch (error) {
-    return error;
-  } 
-};
-
-export const getOperationById = async ({userId, operationId}:{userId:string, operationId:string}) => {
-  try {
-    const {data} = await API.get(`/api/pacientes/${userId}/cirugias/${operationId}`);
-    return data;
-  } catch (error) {
-    return error;
+  } catch {
+    return [];
   } 
 };
 
@@ -54,20 +47,43 @@ export const getUserRecords = async ({userId}:{userId:string})=> {
   }
 };
 
-export const postUserOperation = async (newOperation: UserOperation) => {
+export const getOperationById = async ({userId, operationId}:{userId:string, operationId:string}) => {
+  try {
+    const {data} = await API.get(`/api/pacientes/${userId}/cirugias/${operationId}`);
+    return data;
+  } catch (error) {
+    return error;
+  } 
+};
+
+export const getRecordById = async ({userId, recordId}:{userId:string, recordId:string}) => {
+  try {
+    const {data} = await API.get(`/api/pacientes/${userId}/registros/${recordId}`);
+    return data;
+  } catch (error) {
+    return error;
+  } 
+};
+export const postUserOperations = async (newOperation: UserOperation) => {
   const response = await API.post(`/api/pacientes/${newOperation.userId}/cirugias`, newOperation);
   console.log(response);
   return response.data; 
 }
 
-export const postUserRecord = async (newOperation: UserOperation) => {
-  const response = await API.post("/api/pacientes/1/cirugias", newOperation);
+export const postUserRecords = async (newRecord: userRecord) => {
+  const response = await API.post(`/api/pacientes/${newRecord.userId}/registros`, newRecord);
   console.log(response);
   return response.data; 
 }
 
 export const updateUserOperation = async (newOperation: UserOperation) => {
-  const response = await API.put(`/api/pacientes/${newOperation.userId}/cirugias/${newOperation.idCirugia}`, newOperation);
+  const response = await API.put(`/api/pacientes/${newOperation.userId}/cirugias/${newOperation.id}`, newOperation);
+  console.log(response);
+  return response.data; 
+}
+
+export const updateUserRecord = async (newRecord: userRecord) => {
+  const response = await API.post(`/api/pacientes/${newRecord.userId}/registros//${newRecord.id}`, newRecord);
   console.log(response);
   return response.data; 
 }
@@ -79,7 +95,7 @@ export const deleteUserOperation = async ({userId, operationId}: {userId: string
 }
 
 export const deleteUserRecord = async ({userId, recordId}: {userId: string; recordId: string}) => {
-  const response = await API.post(`/api/pacientes/${userId}/registros/${recordId}`);
+  const response = await API.delete(`/api/pacientes/${userId}/registros/${recordId}`);
   console.log(response);
   return response.data; 
 }

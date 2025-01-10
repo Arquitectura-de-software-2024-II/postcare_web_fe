@@ -30,7 +30,7 @@ export async function login(state: LoginFormState, formData: FormData) {
   const { typeId, userId, password } = validatedFields.data;
   // e.g. Hash the user's password before storing it
   const hashedPassword = await CryptoJS.SHA256(password).toString();
-  // console.log(hashedPassword);
+  console.log(hashedPassword);
 
   const response = await postLogin({
     tipo_documento: typeId,

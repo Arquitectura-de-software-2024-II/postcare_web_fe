@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import { getUser } from "@/logic/services/userManagementServices";
 import { useEffect } from "react";
 import { useUser } from "../util/UserProvider";
+import InfoSkeleton from "@/components/UI/skeleton/InfoSkeleton";
 
 export default function UsuarioLayout({
   children,
@@ -29,7 +30,7 @@ export default function UsuarioLayout({
     }, [setUser]);
 
     if (!user) {
-      return <div>Cargando...</div>;
+      return <InfoSkeleton />;
     }
 
   return (

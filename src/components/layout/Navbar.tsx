@@ -2,7 +2,7 @@
 
 import Button from "../UI/button";
 import Link from "next/link";
-import Logo from "../UI/logo";
+import Logo from "../UI/Logo";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -32,8 +32,8 @@ const navLinksUser = [
 ];
 
 const navLinksProfile = [
-  { name: "Perfil", link: "/usuario/perfil" },
-  { name: "Configuración", link: "/conf" },
+  { name: "Perfil", link: "/usuario/perfil"},
+  { name: "Configuración", link: "/usuario/configuracion"},
 ];
 
 const navLinksAdmin = [

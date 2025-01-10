@@ -1,18 +1,6 @@
-// "use client";
-
 import Alert from "@/components/UI/alert";
-// import { getUser } from "@/logic/services/userManagementServices";
-// import { postRefreshToken } from "@/logic/services/userManagementServices";
-// import { useEffect } from "react";
 
 export default function UserNotifications() {
-  // useEffect(() => {
-  //   // postRefreshToken()
-  //   // const response = getUser();
-  //   // console.log(response);
-  // }, []);
-  
-
   return (
     <>
       <h3 className="text-primaryColor">Notificaciones</h3>

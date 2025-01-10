@@ -1,47 +1,50 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from 'next/headers'
 import { postRefreshToken } from "./logic/services/userManagementServices";
-import { updateSession } from "./logic/lib/session";
+import { createApikey, deleteSession, updateSession } from "./logic/lib/session";
  
 // 1. Specify protected and public routes
-const protectedRoutes = ['/usuario']
+const protectedRoutes = /^\/usuario/;
 const publicRoutes = ['/', '/auth']
  
 export default async function middleware(req: NextRequest) {
+
   // 2. Check if the current route is protected or public
   const path = req.nextUrl.pathname
-  const isProtectedRoute = protectedRoutes.includes(path)
-  const isPublicRoute = publicRoutes.includes(path)
+  const isProtectedRoute = protectedRoutes.test(path);
+  const isPublicRoute = publicRoutes.includes(path);
  
   // 3. Get the cookie from the cookie
   const cookieStore = await cookies();
+  const apikey = cookieStore.get('apikey')
   let session = cookieStore.get('access')
   const refresh = cookieStore.get('refresh')
 
-  if (!session && refresh){
+  if (!apikey){
+    await createApikey();
+  }
+
+  if (!session && refresh && isProtectedRoute){
     const result = await postRefreshToken(refresh.value);
     if (result.access){
       await updateSession(result.access);
       const updatedCookieStore = await cookies();
       session = updatedCookieStore.get('access')
+    }else {
+      await deleteSession();
+      return NextResponse.redirect(new URL('/auth/login', req.url));
     }
   }
 
   //4. Redirect to /login if the user is not authenticated
   if (isProtectedRoute && !session) {
-    return NextResponse.redirect(new URL('/', req.nextUrl))
+    return NextResponse.redirect(new URL('/auth/login', req.nextUrl))
   }
-
-  // console.log(`sesion: ${session?.name}=${session?.value}`);
-
-  // const result = await getUser(`${session?.name}=${session?.value}`);
-  // console.log(result); 
  
   // 5. Redirect to /dashboard if the user is authenticated
   if (
     isPublicRoute &&
-    session &&
-    !req.nextUrl.pathname.startsWith('/usuario')
+    session
   ) {
 
     return NextResponse.redirect(new URL('/usuario', req.nextUrl))

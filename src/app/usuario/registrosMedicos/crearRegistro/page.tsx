@@ -1,10 +1,10 @@
-import RecordForm from "@/components/specific/forms/recordForm";
+import CreateRecordForm from "@/components/specific/forms/createRecordForm";
 import Card from "@/components/UI/card";
 
 export default function RegistrarOperacion() {
   return (
     <Card aditionalClasses="max-w-3xl">
-      <RecordForm />
+      <CreateRecordForm />
     </Card>
   );
 }

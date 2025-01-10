@@ -1,80 +1,80 @@
 "use client";
 
 import InfoSkeleton from "@/components/UI/skeleton/InfoSkeleton";
-import {
-  useDeleteOperation,
-  useGetOperationById,
-} from "@/logic/hooks/useOperations";
-import OperationForm from "./operationForm";
-import { UserOperation } from "@/logic/models/operationModel";
+
+
 import { useUser } from "@/app/util/UserProvider";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import NavForm from "@/components/UI/NavForm";
 import Modal from "@/components/UI/Modal";
 import Button from "@/components/UI/button";
+import { useDeleteRecord, useGetRecordById } from "@/logic/hooks/useRecords";
+import { userRecord } from "@/logic/models/recordModel";
+import RecordForm from "./recordForm";
 
-export default function EditOperationForm({
-  operationId,
+export default function EditRecordForm({
+  recordId,
 }: {
-  operationId: string;
+  recordId: string;
 }) {
   const { user } = useUser();
   const {
-    data: operationData,
-    isLoading: loadingOperation,
+    data: recordData,
+    isLoading: loadingRecord,
     refetch,
-  } = useGetOperationById({
+  } = useGetRecordById({
     userId: user?.id || "",
-    operationId: operationId,
-  }) as { data: UserOperation; isLoading: boolean; refetch: () => void };
-  const { mutate: deleteOperation } = useDeleteOperation();
+    recordId: recordId,
+  }) as { data: userRecord; isLoading: boolean; refetch: () => void };
+  const { mutate: deleteRecord } = useDeleteRecord();
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    if (operationId) {
+    if (recordId) {
       refetch();
     }
-  }, [operationId, refetch]);
+  }, [recordId, refetch]);
 
-  if (loadingOperation) {
+  if (loadingRecord) {
     return <InfoSkeleton />;
   }
 
-  const handleDeleteOperation = () => {
-    if (user?.id && operationId) {
-      deleteOperation({ userId: user.id, operationId: operationId });
+  const handleDeleteRecord = () => {
+    console.log("recordID", recordId);
+    if (user?.id && recordId) {
+      deleteRecord({ userId: user.id, recordId: recordId });
     } else {
-      console.log(user?.id, operationId);
-      console.error("User ID or Operation ID is undefined");
+      console.log(user?.id, recordId);
+      console.error("User ID or Record ID is undefined");
     }
-    redirect("/usuario/procedimientosMedicos");
+    redirect("/usuario/registrosMedicos");
   };
 
   return (
     <>
       <NavForm
-        backLink="/usuario/procedimientosMedicos"
-        title="Operación registrada"
+        backLink="/usuario/registrosMedicos"
+        title="Registo creado"
         options={[
-          { label: "Editar", onClick: () => setIsEditing(true) },
+          { label: "Editar", onClick: () => console.log("Editar") },
           { label: "Eliminar", onClick: () => setDeleteModalOpen(true) },
         ]}
       />
-      <OperationForm mode={isEditing? "edit": "view"} operationData={operationData} />
+      <RecordForm mode="view" recordData={recordData} />
       <Modal
         isOpen={isDeleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
         type="popup"
         defaultDelete={true}
-        content={"¿Estás seguro que deseas eliminar esta operación?"}
+        content={"¿Estás seguro que deseas eliminar este registro?"}
         footerButtons={
           <>
             <Button
               label="Si, eliminar"
               color="error"
-              onClick={handleDeleteOperation}
+              onClick={handleDeleteRecord}
             />
             <Button
               label="No, cancelar"

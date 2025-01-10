@@ -1,8 +1,6 @@
-import { deleteUserOperation, getOperationById, getOperationsOptions, getUserOperations, postUserOperation, updateUserOperation } from "@/logic/services/postoperationServices";
+import { deleteUserOperation, getOperationById, getOperationsOptions, getUserOperations, postUserOperations, updateUserOperation } from "@/logic/services/postoperationServices";
 
 import {  useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
-
 
 export const useOperationsOptions = () => {
   return useQuery({
@@ -31,7 +29,7 @@ export const useGetOperationById = ({userId, operationId}:{userId: string, opera
 export const useCreateOperation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: postUserOperation,
+    mutationFn: postUserOperations,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['userOperations']
