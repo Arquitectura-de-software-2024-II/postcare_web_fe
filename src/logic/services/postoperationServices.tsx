@@ -3,10 +3,9 @@ import { UserOperation } from "@/logic/models/operationModel";
 import { userRecord } from "../models/recordModel";
 
 const API = axios.create({
-  baseURL: "http://localhost:8081",
+  baseURL: "http://localhost:8080",
   headers: { 
     "Content-Type": "application/json",
-    "apikey": "7B5zIqmRGXmrJTFmKa99vcit",
   },
   withCredentials: true, 
 });
