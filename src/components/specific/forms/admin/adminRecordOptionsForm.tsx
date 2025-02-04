@@ -328,7 +328,7 @@ export default function AdminRecordForm({
         {mode !== "view" && (
           <Button
             label={
-              mode === "create" ? "Registrar registro" : "Guardar registro"
+              mode === "create" ? "Crear versión" : "Guardar registro"
             }
             fullWidth={true}
             type="submit"

@@ -2,12 +2,12 @@ import axios from "axios";
 import { newsInfo } from "../models/newsModel";
 
 const API = axios.create({
-  // baseURL: "http://localhost:4000",
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080",
+  baseURL: "http://localhost:4000",
+  // baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080",
   headers: {
     "Content-Type": "application/json",
   },
-  //   withCredentials: true,
+  // withCredentials: true,
 });
 
 export const getNews = async () => {
