@@ -90,24 +90,22 @@ export default function UserConfig() {
         content={
           <>
             <p className="mb-6">
-              ¿Está seguro que desea eliminar su cuenta?, una vez eliminada no
-              podrá recuperar su información. Por favor ingrese su contraseña
-              actual para confirmar la eliminacion de su cuenta
+              Para actualizar su contraseña por favor ingrese su contraseña actual y despues la nueva contraseña.
             </p>
-
-            <Input onChange={handlePasswordChange} type="password"/>
+            <Input label="Contraseña actual" onChange={handlePasswordChange} type="password"/>
+            <Input label="Contraseña nueva" onChange={handlePasswordChange} type="password"/>
           </>
         }
         footerButtons={
           <>
             <Button
-              label="Si, eliminar"
+              label="Actualizar"
               color="error"
               onClick={deleteAccount}
               loading={status === "pending"}
             />
             <Button
-              label="No, cancelar"
+              label="cancelar"
               onClick={() => setUpdatePasswordModalOpen(false)}
             />
           </>

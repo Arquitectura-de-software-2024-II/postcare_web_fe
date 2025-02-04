@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function ContactUs() {
   return (
-    <section className="grid max-w-screen-xl mx-auto lg:gap-8 lg:grid-cols-2 lg:pb-0 xl:gap-8 h-full">
+    <section className="grid max-w-screen-xl justify-center items-center mx-auto lg:gap-8 lg:grid-cols-2 lg:pb-0 xl:gap-8">
       <div className="hidden relative lg:mt-0 lg:col-span-1 lg:flex lg:w-[35vw] lg:h-[35vw] z-10">
         <Image
           fill
@@ -15,7 +15,6 @@ export default function ContactUs() {
           className="z-10"
         />
       </div>
-      <div className="flex justify-center items-center w-full relative lg:mt-0 lg:col-span-1 lg:w-[35vw] lg:h-[35vw] z-10 ">
         <Card aditionalClasses="max-w-sm">
           <FormTitle title="Contáctenos" />
           <form className="flex flex-col gap-4">
@@ -25,7 +24,7 @@ export default function ContactUs() {
             <Button label="Enviar" fullWidth={true} additionalClasses="mt-2"/>
           </form>
         </Card>
-      </div>
+      
     </section>
   );
 }

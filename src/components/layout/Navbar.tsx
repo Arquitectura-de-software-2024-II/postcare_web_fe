@@ -26,7 +26,7 @@ const buttonLinksNotRegistered = [
 ];
 
 const navLinksUser = [
-  { name: "Perfil", link: "/usuario" },
+  { name: "Inicio", link: "/usuario" },
   { name: "Procedimientos", link: "/usuario/procedimientosMedicos" },
   { name: "Registros", link: "/usuario/registrosMedicos" },
 ];
@@ -37,8 +37,10 @@ const navLinksProfile = [
 ];
 
 const navLinksAdmin = [
-  { name: "Admin", link: "/" },
-  { name: "Configuraciones", link: "#" },
+  { name: "Procedimientos", link: "/usuario/admin/procedimientosMedicos" },
+  { name: "Parametros", link: "/usuario/admin/parametros" },
+  { name: "Usuarios", link: "/usuario/admin/usuarios" },
+  { name: "Noticias", link: "/usuario/admin/noticias" },
 ];
 
 const Navbar: React.FC<NavbarProps> = ({ role = "notLoged" }) => {
@@ -84,7 +86,7 @@ const Navbar: React.FC<NavbarProps> = ({ role = "notLoged" }) => {
           </span>
         </Link>
         <div className="flex md:order-2 space-x-3 relative">
-          {role === "user" ? (
+          {role === "user" || role === "admin" ? (
             <>
               <div onClick={toggleProfileMenu} className="cursor-pointer">
                 <Avatar />

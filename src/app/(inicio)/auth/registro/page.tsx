@@ -1,4 +1,4 @@
-import RegisterForm from "@/components/specific/forms/registerForm";
+import RegisterForm from "@/components/specific/forms/auth/registerForm";
 import Card from "@/components/UI/card";
 import FormTitle from "@/components/UI/FormTitle";
 import { Metadata } from "next";

@@ -1,4 +1,4 @@
-import LoginForm from "@/components/specific/forms/loginForm";
+import LoginForm from "@/components/specific/forms/auth/loginForm";
 import Card from "@/components/UI/card";
 import FormTitle from "@/components/UI/FormTitle";
 import { Metadata } from "next";

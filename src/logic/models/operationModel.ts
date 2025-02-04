@@ -10,7 +10,7 @@ export interface UserOperation {
 }
 
 export interface OperationOption {
-    id: string;
+    id?: string;
     nombre: string;
     tipo: OperationType[];
 }

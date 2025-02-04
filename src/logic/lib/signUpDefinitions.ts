@@ -21,6 +21,7 @@ export const SignupFormSchema = z
       .min(8, { message: "Debe tener al menos 8 caracteres de longitud." })
       .regex(/[0-9]/, { message: "Debe contener al menos 1 número." })
       .trim(),
+    acceptTerms: z.string().min(1, { message: "Debe aceptar los términos y condiciones." }),
     repassword: z.string(),
   })
   .refine((data) => data.password === data.repassword, {
@@ -38,6 +39,7 @@ export type SignUpFormState =
         email?: string[];
         password?: string[];
         repassword?: string[];
+        acceptTerms?: string[];
       };
       message?: string;
     }

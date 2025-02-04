@@ -6,8 +6,16 @@ import CryptoJS from "crypto-js";
 import { redirect } from "next/navigation";
 import { postRegister } from "../services/userManagementServices";
 import { toast } from "react-toastify";
+import { createUserPostoperation } from "../services/postoperationServices";
 
 export async function signup(state: SignUpFormState, formData: FormData) {
+  console.log(formData.get("acceptTerms"));
+  if (formData.get("acceptTerms") !== "on") {
+    return {
+      message: "Debe aceptar los términos y condiciones para continuar",
+    };
+  }
+
   // Validate form fields
   const validatedFields = SignupFormSchema.safeParse({
     names: formData.get("names"),
@@ -17,21 +25,13 @@ export async function signup(state: SignUpFormState, formData: FormData) {
     userId: formData.get("userId"),
     password: formData.get("password"),
     repassword: formData.get("repassword"),
+    acceptTerms: formData.get("acceptTerms"),
   });
 
   // If any form fields are invalid, return early
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      formData: {
-        names: formData.get("names"),
-        surnames: formData.get("surnames"),
-        email: formData.get("email"),
-        typeId: formData.get("typeId"),
-        userId: formData.get("userId"),
-        password: formData.get("password"),
-        repassword: formData.get("repassword"),
-      },
     };
   }
 
@@ -53,26 +53,29 @@ export async function signup(state: SignUpFormState, formData: FormData) {
   });
 
   if (response.awaitState == "success") {
+    console.log(response);
+    if (response.data && response.data.id !== null) {
+      await createUserPostoperation(response.data.id.toString());
+    }
     toast.success("Cuenta creada exitosamente");
     redirect("/auth/login");
   } else {
-
     if (
       response.error.id_documento ==
       "usuario with this id documento already exists."
     ) {
       return {
-        message: "Ya existe un usuario con este número de documento",
+        message: "Ya existe un usuario con este número de documento de identidad.",
       };
     } else if (
       response.error.email == "usuario with this email already exists."
     ) {
       return {
-        message: "Ya existe una cuenta con este correo electrónico",
+        message: "Ya existe una cuenta con este correo electrónico.",
       };
     } else {
       return {
-        message: "Hubo un error creando la cuenta",
+        message: "Hubo un error creando la cuenta.",
       };
     }
   }

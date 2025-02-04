@@ -1,11 +1,10 @@
-"use server";
+"use client";
 
 import { LoginFormSchema, LoginFormState } from "@/logic/lib/loginDefinitions";
 import CryptoJS from "crypto-js";
-// import axios from "axios";
-import { createSession } from "../lib/session";
 import { redirect } from "next/navigation";
 import { postLogin } from "@/logic/services/userManagementServices";
+import { toast } from "react-toastify";
 // import { toast } from "react-toastify";
 
 export async function login(state: LoginFormState, formData: FormData) {
@@ -30,7 +29,7 @@ export async function login(state: LoginFormState, formData: FormData) {
   const { typeId, userId, password } = validatedFields.data;
   // e.g. Hash the user's password before storing it
   const hashedPassword = await CryptoJS.SHA256(password).toString();
-  console.log(hashedPassword);
+  // console.log(hashedPassword);
 
   const response = await postLogin({
     tipo_documento: typeId,
@@ -38,9 +37,10 @@ export async function login(state: LoginFormState, formData: FormData) {
     password: hashedPassword,
   });
 
+  // // console.log(response);
+
   if (response.awaitState == "success") {
-    await createSession(response.tokens);
-    // toast.success("Inicio de sesión exitoso");
+    toast.success("Inicio de sesión exitoso");
     redirect("/usuario");
   } else {
     if (

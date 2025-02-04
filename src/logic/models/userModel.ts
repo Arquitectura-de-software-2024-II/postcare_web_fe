@@ -10,3 +10,12 @@ export interface userData{
     tipoSangre: string;
     alergias: string;
 }
+
+export interface userInfo{
+    id: string;
+    id_documento: string;
+    nombres: string;
+    apellidos: string;
+    email:string;
+    triage : string;
+}

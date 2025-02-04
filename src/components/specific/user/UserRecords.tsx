@@ -35,6 +35,11 @@ export default function UserRecords() {
     );
   }
 
+  // Ordenar los registros del más actual al más antiguo
+  const sortedRecords = records.sort((a, b) => {
+    return new Date(b.fechaRegistro).getTime() - new Date(a.fechaRegistro).getTime();
+  });
+
   return (
     <>
       <div className="flex justify-between items-center">
@@ -49,8 +54,8 @@ export default function UserRecords() {
       </div>
       <div className="mx-auto p-4">
         <ol className="relative border-s border-grayColor-20">
-          {records.length > 0 ? (
-            records.map((record, index) => (
+          {sortedRecords.length > 0 ? (
+            sortedRecords.map((record, index) => (
               <li className="mb-6 ms-6" key={index}>
                 <span className="absolute flex items-center justify-center w-6 h-6 bg-primaryColor-10 rounded-full -start-3 ring-8 ring-backgroundColor-90">
                   <FontAwesomeIcon
@@ -69,7 +74,7 @@ export default function UserRecords() {
                 {record.parametrosControl && (
                     <>
                       {record.parametrosControl.signosVitales.map((signo, index) => (
-                        <p key={index}><b>{signo.nombre}:</b> {signo.valor}{signo.unidad}</p>
+                        <p key={index}><b>{signo.nombre}:</b> {signo.valor} {signo.unidad}</p>
                       ))}
                       {record.parametrosControl.sintomas.map((sintoma, index) => (
                         <p key={index}><b>{sintoma.nombre}:</b> {sintoma.valor}</p>

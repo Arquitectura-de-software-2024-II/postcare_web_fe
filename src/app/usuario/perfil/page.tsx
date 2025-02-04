@@ -1,13 +1,11 @@
-
-
-import Button from "@/components/UI/button";
+import UserInfo from "@/components/specific/user/UserInfo";
 import Card from "@/components/UI/card";
 
 export default function PerfilUsuario() {
 
   return (
     <Card aditionalClasses="max-w-3xl">
-      <Button label="Eliminar cuenta" />
+      <UserInfo />
     </Card>
   );
 }

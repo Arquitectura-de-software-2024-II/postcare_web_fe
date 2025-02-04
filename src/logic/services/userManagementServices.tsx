@@ -2,12 +2,12 @@ import { loginData, registerData, tokens } from "@/logic/models/authModel";
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:8080",
+  // baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080",
+  baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
-  
 });
 
 export async function postRefreshToken(
@@ -15,7 +15,7 @@ export async function postRefreshToken(
 ): Promise<{ access: string }> {
   const response = await axios
     .post(
-      "http://localhost:8080/auth/jwt/refresh/",
+      "http://localhost:8000/auth/jwt/refresh/",
       { refresh: refreshToken },
       {
         headers: {
@@ -34,19 +34,47 @@ export async function postRefreshToken(
   return response;
 }
 
+export async function postLogin(
+  userData: loginData
+): Promise<{ awaitState: string; tokens: tokens; error: { detail?: string } }> {
+  const response = await API.post("/auth/jwt/create/", userData)
+    .then(function (result) {
+      return {
+        error: {},
+        tokens: result.data,
+        awaitState: "success",
+      };
+    })
+    .catch((error) => {
+      // console.log(error);
+      return {
+        error: error?.response?.data ? error.response.data : "error",
+        tokens: {
+          refresh: "",
+          access: "",
+        },
+        awaitState: "error",
+      };
+    });
+  return response;
+}
+
 export async function postRegister(userData: registerData): Promise<{
+  data: { id: number } | null;
   awaitState: string;
   error: { detail?: string; email?: string; id_documento?: string };
 }> {
   const response = await API.post("/auth/users/", userData)
-    .then(function () {
+    .then(function (result) {
       return {
+        data: result.data,
         error: {},
         awaitState: "success",
       };
     })
     .catch((error) => {
       return {
+        data: null,
         error: error?.response?.data ? error.response.data : "error",
         awaitState: "error",
       };
@@ -92,34 +120,22 @@ export async function getUser() {
   return response;
 }
 
-export async function postLogin(
-  userData: loginData
-): Promise<{ awaitState: string; tokens: tokens; error: { detail?: string } }> {
-  const response = await API.post("/auth/jwt/create/", userData)
-    .then(function (result) {
-      return {
-        error: {},
-        tokens: result.data,
-        awaitState: "success",
-      };
-    })
-    .catch((error) => {
-      return {
-        error: error?.response?.data ? error.response.data : "error",
-        tokens: {
-          refresh: "",
-          access: "",
-        },
-        awaitState: "error",
-      };
-    });
-  return response;
-}
 
 export async function postLogout() {
   const response = API.post("/auth/jwt/logout/").catch((error) => {
     console.log(error);
     return error;
   });
+  return response;
+}
+
+export async function getListUsers() {
+  const response = await API.get("/auth/pacientes/")
+    .then(function (result) {
+      return result.data;
+    })
+    .catch((error) => {
+      return error.response?.data ? error.response.data : "error";
+    });
   return response;
 }
