@@ -19,7 +19,6 @@ export const createUserPostoperation = async (idPaciente: string) => {
   }
 }
 
-
 export const getUserOperations = async ({userId}:{userId:string}) => {
   try {
     const {data} = await API.get(`/api/pacientes/${userId}/cirugias`);
