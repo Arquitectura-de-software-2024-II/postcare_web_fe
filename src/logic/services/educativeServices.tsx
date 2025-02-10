@@ -2,8 +2,9 @@ import axios from "axios";
 import { newsInfo } from "../models/newsModel";
 
 const API = axios.create({
-  baseURL: "http://localhost:4000",
-  // baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080",
+  // baseURL: "http://localhost:4000",
+  baseURL:  "http://localhost:8080/educativo",
+  // baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/educativo",
   headers: {
     "Content-Type": "application/json",
   },
@@ -12,7 +13,7 @@ const API = axios.create({
 
 export const getNews = async () => {
   try {
-    const response = await API.post("/", {
+    const response = await API.post("", {
       query: "query {getPosts {id title content author createdAt}}",
     });
     const data = (response.data as { data: { getPosts: newsInfo[] } }).data
@@ -35,7 +36,7 @@ export const getNews = async () => {
 
 export const getNewsById = async (newsId: string) => {
   try {
-    const response = await API.post("/", {
+    const response = await API.post("", {
       query: `query {getPost(id: "${newsId}") {id title content author createdAt}}`,
     });
     // console.log(response);
@@ -56,7 +57,7 @@ export const getNewsById = async (newsId: string) => {
 
 export const createNews = async (newNews: newsInfo) => {
   try {
-    const response = await API.post("/", {
+    const response = await API.post("", {
       query: `mutation {createPost(title: "${newNews.title}", content: "${newNews.content}", author: "${newNews.author}") { id title content author createdAt }}`,
     });
     return response;
@@ -67,7 +68,7 @@ export const createNews = async (newNews: newsInfo) => {
 
 export const updateNews = async (newNews: newsInfo) => {
   try {
-    const response = await API.post("/", {
+    const response = await API.post("", {
       query: `mutation { updatePost(id: "${newNews.id}", title: "${newNews.title}", content: "${newNews.content}") { id title content author createdAt }}`,
     });
     return response;
@@ -78,7 +79,7 @@ export const updateNews = async (newNews: newsInfo) => {
 
 export const deleteNews = async (newsId: string) => {
   try {
-    const response = await API.post("/", {
+    const response = await API.post("", {
       query: `mutation {deletePost(id: "${newsId}")}`,
     });
     return response;
