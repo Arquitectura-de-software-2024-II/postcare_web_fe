@@ -41,13 +41,24 @@
 # # Comando para iniciar la aplicación
 # CMD ["npm", "start"]
 
-FROM node:18-alpine
+# Usa una imagen base adecuada
+FROM node:18-alpine 
 
+# Configura el directorio de trabajo
 WORKDIR /app
 
+# Copia los archivos necesarios
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Copia el código fuente
 COPY . .
 
+# Construir la aplicación Next.js
+RUN npm run build
+
+# Exponer el puerto correctamente
 EXPOSE 3000
 
-RUN npm i
-CMD ["npm", "run","build"]
+# Iniciar la aplicación y usar la variable PORT
+CMD ["npm", "run", "start"]
