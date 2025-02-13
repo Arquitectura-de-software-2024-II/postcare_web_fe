@@ -60,5 +60,8 @@ RUN npm run build
 # Exponer el puerto correctamente
 EXPOSE 3000
 
+# Definir una variable de entorno por defecto (opcional)
+ENV NEXT_PUBLIC_API_URL=http://localhost:8081
+
 # Iniciar la aplicación y usar la variable PORT
 CMD ["npm", "run", "start"]
