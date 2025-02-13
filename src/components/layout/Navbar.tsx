@@ -2,13 +2,14 @@
 
 import Button from "../UI/button";
 import Link from "next/link";
-import Logo from "../UI/Logo";
+
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Avatar from "../UI/Avatar";
 import { logout } from "@/logic/actions/logoutAction";
 import { postLogout } from "@/logic/services/userManagementServices";
+import Logo from "../UI/Logo";
 
 interface NavbarProps {
   role?: "notLoged" | "user" | "admin";
