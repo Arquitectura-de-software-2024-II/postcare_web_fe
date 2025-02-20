@@ -3,7 +3,7 @@ import { newsInfo } from "../models/newsModel";
 
 const API = axios.create({
   // baseURL: "http://localhost:4000",
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://postcare-ag-100550183434.us-central1.run.app",
   headers: {
     "Content-Type": "application/json",
   },

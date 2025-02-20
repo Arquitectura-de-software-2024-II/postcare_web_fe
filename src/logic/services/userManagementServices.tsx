@@ -2,7 +2,7 @@ import { loginData, registerData, tokens } from "@/logic/models/authModel";
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://postcare-ag-100550183434.us-central1.run.app",
   //baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
@@ -15,7 +15,7 @@ export async function postRefreshToken(
 ): Promise<{ access: string }> {
   const response = await axios
     .post(
-      "http://localhost:8000/auth/jwt/refresh/",
+      "https://postcare-ag-100550183434.us-central1.run.app/auth/jwt/refresh/",
       { refresh: refreshToken },
       {
         headers: {

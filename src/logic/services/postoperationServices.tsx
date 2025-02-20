@@ -3,7 +3,7 @@ import { OperationOption, UserOperation } from "@/logic/models/operationModel";
 import { NewSymptom, NewVitalSign, RecordOptions, userRecord } from "../models/recordModel";
 
 const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://postcare-ag-100550183434.us-central1.run.app",
   headers: { 
     "Content-Type": "application/json",
   },
