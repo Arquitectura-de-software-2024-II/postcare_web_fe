@@ -46,14 +46,12 @@ export async function updateSession(accessToken: string) {
 
 export async function createApikey() {
   const cookieStore = await cookies();
-
   cookieStore.set("apikey","7B5zIqmRGXmrJTFmKa99vcit", {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
     path: "/",
   });
-  
 }
 
 
