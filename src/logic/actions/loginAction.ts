@@ -37,9 +37,10 @@ export async function login(state: LoginFormState, formData: FormData) {
     password: hashedPassword,
   });
 
-  // // console.log(response);
+  console.log(response);
 
   if (response.awaitState == "success") {
+    document.cookie = "access2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjczNDk0LCJpYXQiOjE3NDAyNjYyOTQsImp0aSI6ImMyNGJmNDlhOTIyNDRiMzBiYmQ3ZGQ0Nzg4YTM0NzZmIiwidXNlcl9pZCI6MTR9.eP0LdOgN48HKUETcza-ksiOZVlPE8UFtAOYvvfvJEm0; expires=Sun, 23 Feb 2025 01:18:14 GMT; HttpOnly; Max-Age=7200; Path=/; SameSite=None; Secure";
     toast.success("Inicio de sesión exitoso");
     redirect("/usuario");
   } else {
