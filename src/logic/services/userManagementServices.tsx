@@ -6,7 +6,7 @@ const API = axios.create({
   //baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
-    "Cookie": `access=${localStorage.getItem("access_token")}; refresh=${localStorage.getItem("refresh_token")}`,
+    // "Cookie": `access=${localStorage.getItem("access_token")}; refresh=${localStorage.getItem("refresh_token")}`,
   },
   withCredentials: true,
 });
