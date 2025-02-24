@@ -2,7 +2,7 @@ import { loginData, registerData, tokens } from "@/logic/models/authModel";
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://postcare-registro-usuario-ms-100550183434.us-central1.run.app",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://34.122.133.171/",
   //baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
@@ -16,7 +16,7 @@ export async function postRefreshToken(
 ): Promise<{ access: string }> {
   const response = await axios
     .post(
-      "https://postcare-registro-usuario-ms-100550183434.us-central1.run.app/auth/jwt/refresh/",
+      "http://34.122.133.171/auth/jwt/refresh/",
       { refresh: refreshToken },
       {
         headers: {
